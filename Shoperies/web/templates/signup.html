@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='signup.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+  <!--<script language="Javascript" type=text/javascript src="{{url_for('static', filename='js/login_alert.js') }}"></script>-->
+  <style>
+    .modal-content {
+      background-color: darkcyan;
+    }
+
+    .btn-link {
+      color: white;
+    }
+
+    .modal-heading h2 {
+      color: #ffffff;
+    }
+  </style>
+  {% if title %}
+  <title>{{ title }}</title>
+  {% else %}
+  <title>Delivery Application</title>
+  {% endif %}
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="card">
+          <h2 class="card-title text-center">Register </a></h2>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div class="alert alert-danger" role="alert">
+            {{messages}}
+          </div>
+          {%  endif  %}
+          {% endwith %}
+          <div class="card-body py-md-4">
+            <form _lpchecked="1" method="POST" action="/signup"
+              oninput='confirmpassword.setCustomValidity(confirmpassword.value != password.value ? "Passwords do not match!": "")'>
+              <div class="form-group">
+                <input type="text" class="form-control" id="username" placeholder="Name" name="username">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="phonenumber" placeholder="Phone number" name="phonenumber">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password"
+                  name="confirmpassword">
+              </div>
+              <div class="d-flex flex-row align-items-center justify-content-between">
+                <button type="button" onclick="window.location.href='{{url_for('auth.login')}}';"
+                  class="btn btn-secondary">Login</button>
+                <button class="btn btn-primary">Create Account</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+{% extends "admin_layout.html" %}
+{% block content %}
+<br>
+<div class="text-black text-center">
+  {{ title }}
+</div>
+<br>
+<div class="container card text-left text-white bg-dark">
+  <div class="row card-body">
+    <div class="col">
+      Order ID
+    </div>
+    <div class="col">
+      Customer
+    </div>
+    <div class="col">
+      Status
+    </div>
+  </div>
+</div>
+{% if orders %}
+{% for order in orders.items %}
+<div class="container card">
+  <a class="nav-item nav-link" href="{{ url_for('main.order', order_id=order.id) }}">
+    <div class="row card-body">
+      <div class="col">
+        {{ order.id }}
+      </div>
+      <div class="col">
+        {{ order.cust_name }}
+      </div>
+      <div class="col">
+        <span class="badge badge-dark">{{ order.status }}</span>
+      </div>
+    </div>
+  </a>
+</div>
+{% endfor %}
+{% else %}
+<br><br>
+<div class="text-center font-weight-bold">
+  No orders here yet.
+</div>
+{% endif %}
+<br>
+<div class="float-right">
+  {% if base_func == 'delivered_orders' %}
+  {% for page_num in orders.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+  {% if page_num %}
+  {% if orders.page == page_num %}
+  <a class="btn btn-info mb-4" href="{{ url_for('main.delivered_orders', page=page_num) }}">{{ page_num }}</a>
+  {% else %}
+  <a class="btn btn-outline-info mb-4" href="{{ url_for('main.delivered_orders', page=page_num) }}">{{ page_num }}</a>
+          {% endif %}
+        {% else %}
+        {% endif%}
+      {% endfor %}
+    {% elif base_func == 'current_orders'%}
+      {% for page_num in orders.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+          {% if orders.page == page_num %}
+            <a class=" btn btn-info mb-4" href="{{ url_for('main.current_orders', page=page_num) }}">{{ page_num }}</a>
+          {% else %}
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('main.current_orders', page=page_num) }}">{{ page_num }}</a>
+          {% endif %}
+        {% else %}
+        {% endif%}
+      {% endfor %}
+    {% elif base_func == 'pin_orders'%}
+      {% for page_num in orders.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+          {% if orders.page == page_num %}
+            <a class=" btn btn-info mb-4" href="{{ url_for('main.pin_orders', pin=orders.items[0].cust_pincode, page=page_num) }}">{{ page_num }}</a>
+          {% else %}
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('main.pin_orders', pin=orders.items[0].cust_pincode, page=page_num) }}">{{ page_num }}</a>
+          {% endif %}
+        {% else %}
+        {% endif%}
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock content %}

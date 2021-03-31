@@ -1,0 +1,33 @@
+{% extends "admin_layout.html" %}
+{% block content %}
+<br>
+<div class="text-black text-center">
+  {{ title }}
+</div>
+<br>
+<div class="container card text-left text-white bg-dark">
+  <div class="row card-body">
+    <div class="col">
+      Pincode
+    </div>
+  </div>
+</div>
+{% if orders %}
+{% for order in orders %}
+<div class="container card">
+  <a class="nav-item nav-link" href="{{ url_for('main.pin_orders', pin=order.cust_pincode) }}">
+    <div class="row card-body">
+      <div class="col">
+        {{ order.cust_pincode }}
+      </div>
+    </div>
+  </a>
+</div>
+{% endfor %}
+{% else %}
+<br><br>
+<div class="text-center font-weight-bold">
+  No orders here yet.
+</div>
+{% endif %}
+{% endblock content %}

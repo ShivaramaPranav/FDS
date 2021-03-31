@@ -1,0 +1,85 @@
+{% extends "agent_layout.html" %}
+{% block content %}
+{% if agent.is_working == True %}
+{% set status = 'Available' %}
+{% set opp_status = 'Un-Available' %}
+{% set badge_type = 'primary' %}
+{% else %}
+{% set status = 'Un-Available' %}
+{% set opp_status = 'Available' %}
+{% set badge_type = 'danger' %}
+{% endif %}
+<div class="container card">
+  <div class="row card-body">
+    <div class="col">
+      {{ agent.username }}
+    </div>
+    <div class="col">
+      <a href="tel:{{agent.phone_no}}">{{agent.phone_no}}</a>
+    </div>
+    <div class="col">
+      <span class="badge badge-dark">Orders:{{orders.items|length}}</span>
+    </div>
+    <div class="col">
+      <span class="badge badge-{{ badge_type }}">{{ status }}</span>
+    </div>
+  </div>
+  <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('main.da_update_status', agent_id=agent.id) }}">Make
+    {{opp_status}}</a>
+</div>
+<br>
+{% if orders %}
+<div class="container card text-left text-white bg-dark">
+  <div class="row card-body">
+    <div class="col">
+      Order ID
+    </div>
+    <div class="col">
+      Customer
+    </div>
+    <div class="col">
+      Status
+    </div>
+  </div>
+</div>
+{% for order in orders.items %}
+<div class="container card">
+  <a class="nav-item nav-link" href="{{ url_for('main.detailed_order', order_id=order.id) }}">
+    <div class="row card-body">
+      <div class="col">
+        {{ order.id }}
+      </div>
+      <div class="col">
+        {{ order.cust_name }}
+      </div>
+      <div class="col">
+        <span class="badge badge-dark">{{ order.status }}</span>
+      </div>
+    </div>
+  </a>
+</div>
+{% endfor %}
+<br><br>
+<div class="mr-2 col col-md-4">
+  <a class="btn btn-primary" href="{{ url_for('main.plot_agent_route', agent_id=agent.id) }}" target="_blank">My Route</a>
+</div>
+{% else %}
+<br>
+<div class="text-black text-center font-weight-bold">
+  This agent has no orders yet.
+</div>
+{% endif %}
+<br>
+<div class="float-right">
+  {% for page_num in orders.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+  {% if page_num %}
+  {% if orders.page == page_num %}
+  <a class="btn btn-info mb-4" href="{{ url_for('main.agent_view', page=page_num) }}">{{ page_num }}</a>
+  {% else %}
+  <a class="btn btn-outline-info mb-4" href="{{ url_for('main.agent_view', page=page_num) }}">{{ page_num }}</a>
+  {% endif %}
+  {% else %}
+  {% endif%}
+  {% endfor %}
+</div>
+{% endblock content %}

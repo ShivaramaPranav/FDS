@@ -1,0 +1,130 @@
+{% extends "admin_layout.html" %}
+{% block content %}
+<h1>Create Order</h1>
+<form action="/create_order" method="post" novalidate>
+
+  {{ form.csrf_token }}
+
+  <p>
+  <div class="form-group">
+    {{ form.cust_name.label(class="form-control-label") }}
+    {% if form.cust_name.errors %}
+    {{ form.cust_name(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.cust_name.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.cust_name(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  </p>
+  <p>
+  <div class="form-group">
+    {{ form.phone.label(class="form-control-label") }}
+    {% if form.phone.errors %}
+    {{ form.phone(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.phone.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.phone(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  </p>
+  <p>
+  <div class="form-group">
+    {{ form.cust_addr1.label(class="form-control-label") }}
+    {% if form.cust_addr1.errors %}
+    {{ form.cust_addr1(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.cust_addr1.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.cust_addr1(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  <div class="form-group">
+    {{ form.cust_addr2.label(class="form-control-label") }}
+    {% if form.cust_addr2.errors %}
+    {{ form.cust_addr2(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.cust_addr2.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.cust_addr2(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  </p>
+  <p>
+  <div class="form-group">
+    {{ form.cust_pincode.label(class="form-control-label") }}
+    {% if form.cust_pincode.errors %}
+    {{ form.cust_pincode(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.cust_pincode.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.cust_pincode(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  </p>
+  <p>
+  <div class="form-group">
+    {{ form.delivery_instructions.label(class="form-control-label") }}
+    {% if form.delivery_instructions.errors %}
+    {{ form.delivery_instructions(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.delivery_instructions.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.delivery_instructions(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  </p>
+  <p>
+  <div class="form-group">
+    {{ form.user_tip.label(class="form-control-label") }}
+    {% if form.user_tip.errors %}
+    {{ form.user_tip(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.user_tip.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.user_tip(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  </p>
+  <p>
+  <div class="form-group">
+    {{ form.status.label(class="form-control-label") }}
+    {% if form.status.errors %}
+    {{ form.status(class="form-control form-control-lg is-invalid") }}
+    <div class="invalid-feedback">
+      {% for error in form.status.errors %}
+      <span>{{ error }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    {{ form.status(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  </p>
+  <p>{{ form.submit() }}</p>
+</form>
+
+
+{% endblock %}
